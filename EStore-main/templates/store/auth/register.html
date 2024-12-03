@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация администратора</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px; /* Отступы по краям */
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 600px; /* Ширина формы */
+            text-align: left; /* Текст слева для лучшего восприятия */
+            display: flex; /* Для создания двух колонок */
+            flex-direction: column; /* Столбик для заголовка и формы */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center; /* Центрируем заголовок */
+        }
+
+        .form-row {
+            display: flex; /* Для создания строк с двумя колонками */
+            justify-content: space-between; /* Распределяем пространство между колонками */
+            margin-bottom: 20px; /* Отступ снизу между строками */
+        }
+
+        .form-group {
+            flex: 1; /* Поля будут занимать равную ширину */
+            min-width: 0; /* Убираем минимальную ширину */
+            margin: 0 10px; /* Отступы между полями */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box; /* Учитываем padding и border в ширине */
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 10px;
+            text-align: center; /* Центрируем текст */
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Сообщения об ошибках */
+        ul {
+            list-style: none;
+            padding: 0;
+            color: red; /* Цвет текста для ошибок */
+            margin-top: 10px; /* Отступ сверху для списка ошибок */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Регистрация</h1>
+        <form method="POST">
+            <div class="form-row">
+                <!-- Левые поля: ФИО и телефон --> 
+            </div>
+            <div class="form-group">
+                <label for="last_name">Фамилия</label>
+                <input type="text" id="last_name" name="last_name" required minlength="2" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+            </div>
+            <div class="form-group">
+                <label for="first_name">Имя</label>
+                <input type="text" id="first_name" name="first_name" required minlength="2" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+            </div>
+            <div class="form-group">
+                <label for="patronymic">Отчество</label>
+                <input type="text" id="patronymic" name="patronymic" required minlength="2" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" pattern="\+7[0-9]{10}" required title="Телефон должен начинаться с +7 и содержать 11 цифр">
+            </div>
+
+
+            <div class="form-row">
+                <!-- Правые поля: логин и пароль -->
+
+                <div class="form-group">
+                    <label for="username">Логин</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+            </div>
+            
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="postal_code">Почтовый индекс</label>
+                    <input type="text" id="postal_code" name="postal_code" required maxlength="6" pattern="^\d{6}$" title="Введите 6 цифр" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+
+                <div class="form-group">
+                    <label for="region">Область</label>
+                    <input type="text" id="region" name="region" required minlength="3" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+
+               
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">Город</label>
+                    <input type="text" id="city" name="city" required minlength="3" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+                <div class="form-group">
+                    <label for="street">Улица</label>
+                    <input type="text" id="street" name="street" required minlength="3" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+
+                
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="house">Дом</label>
+                    <input type="text" id="house" name="house" required pattern="^\d+[А-Яа-яёЁ0-9/]*$" title="Должно начинаться с цифр, могут следовать русские буквы и дробь" oninput="this.value = this.value.replace(/[^0-9А-Яа-яёЁ/]/g, '')">
+                </div>
+                <div class="form-group">
+                    <label for="apartment">Квартира</label>
+                    <input type="text" id="apartment" name="apartment">
+                </div>
+            </div>
+
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <p>Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти</a></p>
+    </div>
+</body>
+</html>

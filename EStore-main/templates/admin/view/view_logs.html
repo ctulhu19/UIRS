@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логи действий</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pagin.css') }}">
+    
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <a href="{{ url_for('admin') }}">Панель админа</a>
+        </div>
+        <div class="header-center">
+            <a href="{{ url_for('admin') }}">Логи действий пользователей</a>
+        </div>
+        <div class="header-right">
+            <a href="{{ url_for('logout') }}">Выйти</a>
+        </div>
+    </header>
+
+    <div class="table-container">
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Дата и время</th>
+                    <th>Пользователь</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody id="logs-tbody">
+                {% for log in logs %}
+                    <tr class="log-row">
+                        <td>{{ log.timestamp }}</td>
+                        <td>{{ log.user.username }}</td>
+                        <td>{{ log.action }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <button onclick="prevPage()">Назад</button>
+        <span id="page-number">Страница 1</span>
+        <button onclick="nextPage()">Вперед</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const rowsPerPage = 16;
+        const rows = document.querySelectorAll(".log-row");
+
+        function displayPage(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            rows.forEach((row, index) => {
+                row.style.display = index >= start && index < end ? "" : "none";
+            });
+            document.getElementById("page-number").textContent = `Страница ${page}`;
+        }
+
+        function nextPage() {
+            if (currentPage * rowsPerPage < rows.length) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        }
+
+        displayPage(currentPage);
+    </script>
+</body>
+</html>

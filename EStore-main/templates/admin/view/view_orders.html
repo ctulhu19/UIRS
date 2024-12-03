@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы пользователей</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pagin.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <a href="{{ url_for('admin') }}">Панель админа</a>
+        </div>
+        <div class="header-center">
+            <a href="{{ url_for('view_orders') }}"> Заказы пользователей</a>
+        </div>
+        <div class="header-right">
+            <a href="{{ url_for('logout') }}">Выйти</a>
+        </div>
+    </header>
+    <main>
+        {% if orders %}
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Номер заказа</th>
+                        <th>Дата заказа</th>
+                        <th>Пользователь</th>
+                        <th>Адрес</th> 
+                        <th>Телефон</th> 
+                        <th>Товар</th>
+                        <th>Количество</th>
+                        <th>Цена за шт</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-tbody">
+                    {% for order in orders %}
+                        <tr class="order-row">
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.order_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            <td> {{ order.last_name }} {{ order.first_name }} {{ order.patronymic }}</td>
+                            <td>{{ order.postal_code }}, {{ order.user.region }}, {{ order.user.city }},
+                                {{ order.street }}, {{ order.house }}, {{ order.apartment }}
+                            </td>  
+                            <td>{{ order.user.phone }}</td>
+                            <td>{{ order.product.name }}</td>
+                            <td>{{ order.quantity }}</td>
+                            <td>{{ order.product.price }} руб.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+            <!-- Навигация по страницам -->
+            <div class="pagination">
+                <button onclick="prevPage()">Назад</button>
+                <span id="page-number"></span>
+                <button onclick="nextPage()">Вперед</button>
+            </div>
+        {% else %}
+            <p>У вас пока нет заказов.</p>
+        {% endif %}
+    </main> 
+</body>
+<script>
+    let currentPage = 1;
+    const rowsPerPage = 5;
+    const rows = document.querySelectorAll(".order-row");
+    function displayPage(page) {
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        rows.forEach((row, index) => {
+            row.style.display = index >= start && index < end ? "" : "none";
+        });
+        document.getElementById("page-number").textContent = `Страница ${page}`;
+    }
+    function nextPage() {
+        if (currentPage * rowsPerPage < rows.length) {
+            currentPage++;
+            displayPage(currentPage);
+        }
+    }
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayPage(currentPage);
+        }
+    }
+    displayPage(currentPage);
+</script>
+</html>

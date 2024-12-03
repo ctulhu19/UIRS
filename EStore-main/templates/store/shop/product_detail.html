@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <a href="{{ url_for('index') }}">Главная</a>
+            <a href="{{ url_for('shop') }}">Каталог</a>
+            <a href="{{ url_for('about') }}">О нас</a>
+        </div>
+    
+        <div class="header-center">
+            <a href="{{ url_for('index') }}">LavkaMalyavka</a>
+        </div>
+    
+        <div class="header-right">
+            <a href="{{ url_for('view_cart') }}">Корзина </a>
+            {% if current_user.is_authenticated and current_user.id %}
+            <a href="{{ url_for('shop.user_profile', user_id=current_user.id) }}">Мой профиль</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Войти</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="product-page">
+        <div class="product-detail">
+            <div class="product-image">
+                <img src="{{ url_for('static', filename='images/' + product.image_filename) }}" alt="{{ product.name }}">
+            </div>
+            <div class="product-info">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Цена: {{ product.price }} рублей</p>
+                <p>Доступно к продаже {{ product.quantity }} шт.</p>
+
+                <form method="POST" action="{{ url_for('add_to_cart', id=product.id) }}">
+                    <label for="quantity">Количество:</label>
+                    <button type="button" class="decrease">-</button>
+                    <input type="number" id="quantity" class = "input_quantity" name="quantity" min="1" max="{{ product.quantity }}" value="1">
+                    <button type="button" class="increase">+</button>
+                    <button type="submit">Купить</button>
+                </form>
+            </div>
+        </div>        
+    </main>
+    
+    <div class="related-products"></div>
+        <h3>Вам также могут понравиться:</h3>
+        <div class="product-grid">
+            {% for recent_product in recent_products %}
+                <div class="product-tile-rec" data-product-id="{{ recent_product.id }}">
+                    <img src="{{ url_for('static', filename='images/' + recent_product.image_filename) }}" alt="{{ recent_product.name }}">
+                    <h4>{{ recent_product.name }}</h4>
+                    <p>Цена: {{ recent_product.price }} рублей</p>
+                    <div class="view-details">Посмотреть</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    
+    <footer>
+        <p>&copy; 2024 LavkaMalyavka. Все права защищены.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.increase').on('click', function() {
+                let quantityInput = $('#quantity');
+                let currentQuantity = parseInt(quantityInput.val());
+                let maxQuantity = parseInt(quantityInput.attr('max'));
+
+                if (currentQuantity < maxQuantity) {
+                    currentQuantity++;
+                    quantityInput.val(currentQuantity); // Обновляем значение input
+                }
+            });
+
+            $('.decrease').on('click', function() {
+                let quantityInput = $('#quantity');
+                let currentQuantity = parseInt(quantityInput.val());
+
+                if (currentQuantity > 1) {
+                    currentQuantity--;
+                    quantityInput.val(currentQuantity); // Обновляем значение input
+                }
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/product_redirect.js') }}"></script>
+
+</body>
+</html>

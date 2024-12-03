@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            padding-top: 20px;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 5px 0;
+        }
+        p strong {
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+        .no-orders {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Профиль пользователя</h1>
+
+        <p><strong>Никнейм:</strong> {{ user.username }}</p>
+        <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
+        <p><strong>Имя:</strong> {{ user.first_name }}</p>
+        <p><strong>Отчество:</strong> {{ user.patronymic }}</p>
+        <p><strong>Почтовый индекс:</strong> {{ user.postal_code }}</p>
+        <p><strong>Область:</strong> {{ user.region }}</p>
+        <p><strong>Город:</strong> {{ user.city }}</p>
+        <p><strong>Улица:</strong> {{ user.street }}</p>
+        <p><strong>Дом:</strong> {{ user.house }}</p>
+        <p><strong>Квартира:</strong> {{ user.apartment }}</p>
+        <p><strong>Телефон:</strong> {{ user.phone }}</p>
+
+        <h1>Мои заказы</h1>
+        
+        {% if orders %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Номер заказа</th>
+                        <th>Товар</th>
+                        <th>Количество</th>
+                        <th>Дата заказа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.product.name }}</td>
+                            <td>{{ order.quantity }}</td>
+                            <td>{{ order.order_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-orders">У вас пока нет заказов.</p>
+        {% endif %}
+        
+        <a href="{{ url_for('index') }}">На главную</a>
+    </div>
+</body>
+</html>

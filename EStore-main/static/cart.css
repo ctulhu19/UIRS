@@ -1,0 +1,274 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 10px; /* Добавляем отступ между колонками */
+    margin-left: 350px;
+    margin-right: 10px; /* Добавьте правый отступ */
+}
+
+.cart-column {
+    flex: 1 1 70%; /* Гибкое распределение места */
+    max-width: 70%; /* Задаем корзине максимум 55% */
+}
+
+.order-form-wrapper {
+    flex: 1 1 20%; /* Задаем максимум 40% для формы */
+    max-width: 20%;
+    padding-top: 0; /* Убираем дополнительный padding */
+}
+
+.order-form {
+    width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Контейнер для колонок формы */
+.form-columns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-left, .form-right {
+    width: 48%; /* Задаем одинаковую ширину для каждой колонки */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+/* Таблица корзины */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+table td {
+    vertical-align: middle;
+}
+table a {
+    color: inherit; /* Устанавливаем цвет ссылки как у родительского элемента */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+/* Дополнительный стиль для ссылки при наведении, если необходимо */
+table a:hover {
+    color: inherit; /* Поддерживаем цвет при наведении */
+    text-decoration: underline; /* Можно добавить подчеркивание при наведении, если хотите */
+}
+
+/* Стиль для инпутов количества */
+.quantity-input {
+    width: 60px;
+    text-align: center;
+}
+
+button.decrease, button.increase {
+    font-size: 20px;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+button.decrease:hover, button.increase:hover {
+    color: #007bff;
+}
+
+/* Общая цена */
+#total-price {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+}
+
+/* Шапка */
+header {
+    background-color: #fff;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Отступ вниз */
+    border: none; /* Убираем границы */
+    margin-left: 80px;
+    margin-right: 185px;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items:normal;
+}
+
+.header-left a, .header-right a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.header-center {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header-center a {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+/* Стиль для кнопки удаления */
+button.delete {
+    padding: 5px 10px; /* Уменьшаем отступы */
+    background-color: #a7a7a7; /* Цвет фона кнопки (например, красный) */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем границы */
+    border-radius: 4px; /* Закругляем углы */
+    font-size: 14px; /* Уменьшаем размер шрифта */
+    cursor: pointer; /* Указатель при наведении */
+}
+
+/* Эффект при наведении */
+button.delete:hover {
+    background-color: #e60000; /* Цвет фона при наведении */
+}
+
+.recommendations {
+    margin-top: 20px;
+}
+
+.recommendation-items {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет переносить карточки на следующую строку */
+    justify-content: space-between; /* Выравнивание карточек по ширине */
+}
+
+.recommendation-item {
+    border: 1px solid #ddd;
+    margin: 5px;
+    padding: 10px;
+    width: calc(25% - 20px); /* Три карточки в ряд с учетом отступов */
+    text-align: center;
+    box-sizing: border-box; /* Включаем отступы и границы в ширину элемента */
+}
+
+.recommendation-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+.related-products {
+    padding-top: 20px;
+}
+
+.product-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product-tile {
+    border: 1px solid #f7f7f7;
+    padding: 10px;
+    border-radius: 5px;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 0 10px #f7f7f7;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+.product-tile img {
+    max-width: 100%;
+    height: 260px;
+    border-radius: 5px;
+    transition: opacity 0.3s ease;
+}
+
+.product-tile h4, .product-tile p {
+    margin: 10px 0;
+}
+
+.product-tile:hover {
+    background-color: #f7f7f7;
+}
+
+.product-tile:hover img {
+    opacity: 0.5;
+}
+
+.product-tile:hover .view-details {
+    opacity: 1;
+}
+
+.view-details {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: #f7f7f7;
+    padding: 10px 20px;
+    border: 2px solid #f7f7f7;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}

@@ -1,0 +1,11 @@
+
+.form-container {
+    width: 100%;
+    max-width: 500px; /* Максимальная ширина формы */
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для формы */
+    border-radius: 10px;
+    margin: 20px;
+    margin-left: 35%;   
+}

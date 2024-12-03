@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<header>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</header>
+<body>
+    <header>
+        <nav>
+            
+            <a href="./">Главная</a>
+            <a href="./shop">Каталог</a>
+            <a href="./">LavkaMalyavka</a>
+            <a href="{{ url_for('view_cart') }}">Корзина ({{ session.get('cart', []) | length }})</a>
+           
+        </nav>
+    </header>
+
+
+    <footer>
+        <p>&copy; 2024 LavkaMalyavka. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+h1 {
+    text-align: center;
+}
+h3{
+    color:#888686;
+    margin-left: 100px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 90px;
+}
+
+.search-input {
+    width: 74%; 
+    padding: 10px;
+    font-size: 16px;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    width: 23%; /* Оставшаяся часть для сортировки и кнопки */
+}
+
+.sort-select {
+    margin-right: 10px;
+    padding: 11px;
+}
+
+.search-button {
+    padding: 13px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.product-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product-tile {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-tile img {
+    max-width: 100%;
+    height: 300px;
+    border-radius: 5px;
+}
+
+.product-tile h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.product-tile p {
+    font-size: 16px;
+    color: #333;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Высота экрана */
+}
+
+footer {
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: auto; /* Перемещает футер вниз страницы */
+}
+
+main {
+    flex-grow: 1; /* Основное содержимое растягивается по высоте */
+    padding-bottom: 40px; /* Дополнительный отступ, чтобы контент не перекрывался футером */
+}
+
+header {
+    background-color: #fff;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Отступ вниз */
+    border: none; /* Убираем границы */
+    margin-left: 80px;
+    margin-right: 185px;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items:normal;
+}
+
+.header-left a, .header-right a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.header-center {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header-center a {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+
+.product-tile {
+    border: 1px solid #f7f7f7;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0 10px #f7f7f7;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+.product-tile-rec {
+    border: 1px solid #f7f7f7;
+    padding: 5px;
+    border-radius: 5px;
+    width: 240px;
+    text-align: center;
+    box-shadow: 0 0 5px #f7f7f7;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+.product-tile-rec img {
+    max-width: 100%;
+    height: 240px;
+    border-radius: 5px;
+    transition: opacity 0.3s ease; /* Плавное затемнение картинки */
+}
+
+
+.product-tile h2, .product-tile p {
+    margin: 10px 0;
+}
+
+.product-tile-rec h2, .product-tile p {
+    margin: 1px 0;
+}
+
+
+.product-tile:hover {
+    background-color: #f7f7f7; /* Затемнение карточки */
+
+}
+.product-tile-rec:hover {
+    background-color: #f7f7f7; /* Затемнение карточки */
+
+}
+
+
+.product-tile:hover img {
+    opacity: 0.5; /* Затемнение изображения при наведении */
+}
+.product-tile-rec:hover img {
+    opacity: 0.5; /* Затемнение изображения при наведении */
+}
+
+.product-tile:hover .view-details {
+    opacity: 1; /* Показываем надпись при наведении */
+}
+.product-tile-rec:hover .view-details {
+    opacity: 1; /* Показываем надпись при наведении */
+}
+
+.related-products{
+    padding-top: 100px;
+}
+
+.view-details {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрирование надписи по карточке */
+    background-color: black;
+    color: #f7f7f7;
+    padding: 10px 20px;
+    border: 2px solid #f7f7f7;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.add-to-cart-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.add-to-cart-button.added-to-cart {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Основные стили для страницы с товаром */
+.product-page {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-detail {
+    display: flex;
+    max-width: 1200px; /* Ограничиваем ширину страницы с товаром */
+    gap: 40px; /* Промежуток между изображением и информацией */
+}
+
+/* Блок с изображением */
+.product-image {
+    flex: 1; /* Задаём блок с изображением на 1 часть */
+}
+
+.product-image img {
+    max-width: 100%;
+    height: auto; /* Поддержка адаптивности изображения */
+    border-radius: 8px;
+}
+
+/* Блок с информацией о товаре */
+.product-info {
+    flex: 2; /* Блок с информацией занимает 2 части */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.product-info h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.product-info p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.product-info form {
+    margin-top: 20px;
+}
+
+.product-info button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Убираем фон, границы и делаем кнопки похожими на текст */
+button.decrease, button.increase {
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем границу */
+    color: #007bff; /* Цвет текста */
+    font-size: 24px; /* Размер символов */
+    cursor: pointer; /* Курсор при наведении указывает, что это кликабельный элемент */
+    padding-right: 10px;
+    padding-left: 0%;
+}
+
+/* При наведении текст становится немного темнее */
+button.decrease:hover, button.increase:hover {
+    color: #0056b3; /* Темно-синий цвет при наведении */
+}
+
+.input_quantity{
+    padding-right: 3%;
+    margin-right: 0%;
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина и Оформление заказа</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cart.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <a href="{{ url_for('index') }}">Главная</a>
+            <a href="{{ url_for('shop') }}">Каталог</a>
+            <a href="{{ url_for('about') }}">О нас</a>
+        </div>
+        <div class="header-center">
+            <a href="{{ url_for('index') }}">LavkaMalyavka</a>
+        </div>
+        <div class="header-right">
+            <a href="{{ url_for('view_cart') }}">Корзина</a>
+            <a href="{{ url_for('shop.user_profile', user_id=current_user.id) }}">Мой профиль</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Левая часть: Корзина товаров -->
+        <div class="cart-column">
+            <h2>Ваша корзина</h2>
+            {% if cart_items %}
+            <table class="table cart-table">
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Количество</th>
+                        <th>Цена за шт.</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td><a href="./product/{{ item.product.id }}">{{ item.product.name }}</a></td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.price }} рублей</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('remove_from_cart', id=item.id) }}">
+                                <button type="submit" class="delete">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Ваша корзина пуста.</p>
+            {% endif %}
+            
+            <!-- Дополнительная информация о доставке и возврате -->
+           
+
+<div class="order-form">
+    <h2>Оформление заказа</h2>
+    <form method="POST" action="{{ url_for('process_order') }}">
+        <div class="form-columns"> <!-- Новый контейнер для разделения колонок -->
+            <!-- Левая колонка: ФИО и телефон -->
+            <div class="form-left">
+                <div class="form-group">
+                    <label for="last_name">Фамилия</label>
+                    <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required minlength="2" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+                <div class="form-group">
+                    <label for="first_name">Имя</label>
+                    <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" required minlength="2" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+                <div class="form-group">
+                    <label for="patronymic">Отчество</label>
+                    <input type="text" id="patronymic" name="patronymic" value="{{ user.patronymic }}" required minlength="2" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" value="{{ user.phone }}" pattern="\+7[0-9]{10}" required title="Телефон должен начинаться с +7 и содержать 11 цифр">
+                </div>
+                <div class="form-group">
+                    <label for="postal_code">Почтовый индекс</label>
+                    <input type="text" id="postal_code" name="postal_code" value="{{ user.postal_code }}" required maxlength="6" pattern="^\d{6}$" title="Введите 6 цифр" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+            </div>
+
+            <!-- Правая колонка: Адрес доставки -->
+            <div class="form-right">
+               
+                <div class="form-group">
+                    <label for="region">Область</label>
+                    <input type="text" id="region" name="region" value="{{ user.region }}" required minlength="3" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+                <div class="form-group">
+                    <label for="city">Город</label>
+                    <input type="text" id="city" name="city" value="{{ user.city }}" required minlength="3" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+                <div class="form-group">
+                    <label for="street">Улица</label>
+                    <input type="text" id="street" name="street" value="{{ user.street }}" required minlength="3" maxlength="30" pattern="[А-Яа-яЁё]+" title="Можно вводить только русской раскладкой клавиатуры">
+                </div>
+                <div class="form-group">
+                    <label for="house">Дом</label>
+                    <input type="text" id="house" name="house" value="{{ user.house }}" required pattern="^\d+[А-Яа-яёЁ0-9/]*$" title="Должно начинаться с цифр, могут следовать русские буквы и дробь" oninput="this.value = this.value.replace(/[^0-9А-Яа-яёЁ/]/g, '')">
+                </div>
+                <div class="form-group">
+                    <label for="apartment">Квартира</label>
+                    <input type="text" id="apartment" name="apartment" value="{{ user.apartment }}">
+                </div>
+            </div>
+        </div>
+        <button type="submit">Оформить заказ</button>
+    </form>
+    <div class="additional-info">
+        <h4>Условия доставки</h4>
+        <p>Доставка осуществляется в течение 3-5 рабочих дней. Стоимость доставки рассчитывается при оформлении заказа.</p>
+        
+        <h4>Условия возврата</h4>
+        <p>Вы можете вернуть товар в течение 14 дней после получения. Товар должен быть в оригинальной упаковке и не использоваться.</p>
+    </div>
+</div>
+<div class="related-products"></div>
+<h3>Вам также могут понравиться:</h3>
+<div class="product-grid">
+    {% for recommended_product in recommended_products %}
+    <div class="product-tile" data-product-id="{{ recommended_product.id }}">
+        <img src="{{ url_for('static', filename='images/' + recommended_product.image_filename) }}" alt="{{ recommended_product.name }}">
+        <p>{{ recommended_product.name }}</p>
+        <p>{{ recommended_product.price }} рублей</p>
+        <div class="view-details">Посмотреть</div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+        
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.increase, .decrease').on('click', function() {
+                let productId = $(this).data('id');
+                let quantityInput = $('.quantity-input[data-id="' + productId + '"]');
+                let currentQuantity = parseInt(quantityInput.val());
+                let maxQuantity = parseInt(quantityInput.attr('max'));
+                let newQuantity = $(this).hasClass('increase') ? Math.min(currentQuantity + 1, maxQuantity) : Math.max(currentQuantity - 1, 1);
+
+                quantityInput.val(newQuantity);
+                updateCartQuantity(productId, newQuantity);
+            });
+
+            function updateCartQuantity(productId, newQuantity) {
+                $.ajax({
+                    url: '{{ url_for("update_cart_quantity") }}',
+                    method: 'POST',
+                    data: { 'id': productId, 'quantity': newQuantity },
+                    success: function(response) {
+                        $('#total-price').text(response.total_price + ' рублей');
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/product_redirect.js') }}"></script>
+</body>
+</html>

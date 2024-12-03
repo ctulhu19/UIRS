@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель управления</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-left"></div>
+        <div class="header-center">
+            <a href="{{ url_for('admin') }}">Административная панель</a>
+        </div>
+        <div class="header-right">
+            <a href="{{ url_for('logout') }}">Выйти</a>
+        </div>
+    </header>
+
+    <main class="admin-panel">
+        <div class="card">
+            <a href="{{ url_for('adminproduct') }}">
+                <img src="{{ url_for('static', filename='images/admin_panel/chack.png') }}" alt="Управление товарами">
+                <h2>Просмотр товаров</h2>
+            </a>
+        </div>
+        <div class="card">
+            <a href="{{ url_for('add_product') }}">
+                <img src="{{ url_for('static', filename='images/admin_panel/add.png') }}" alt="Добавить товар">
+                <h2>Добавить товар</h2>
+            </a>
+        </div>
+        <div class="card">
+            <a href="{{ url_for('view_orders') }}">
+                <img src="{{ url_for('static', filename='images/admin_panel/view_orders.png') }}" alt="Просмотреть заказы">
+                <h2>Просмотреть все заказы</h2>
+            </a>
+        </div>
+        <div class="card">
+            <a href="{{ url_for('view_logs') }}">
+                <img src="{{ url_for('static', filename='images/admin_panel/manage_users.png') }}" alt="Действие пользователей">
+                <h2>Действие пользователей</h2>
+            </a>
+        </div>
+    </main>
+</body>
+</html>
